@@ -1,0 +1,20 @@
+{
+  "name": "ITS-WebSite",
+  "version": "1.0.0",
+  "description": "for D",
+  "main": "index.js",
+  "author": "Shou Hao, Zhao <j5201314peter@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js --exec babel-node"
+  },
+  "private": true,
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.12.4",
+    "nodemon": "^1.12.1"
+  }
+}
