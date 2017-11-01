@@ -17,7 +17,10 @@ export const getCarList = (req, res) => {
   })
 }
 export const postCar = (req, res) => {
-  const {car} = req.body;
+  const car = req.query;
+  // const { driver, plate, status, location, speed, address, note} = req.body;
+  // console.log('tmp:',req.query)
+  console.log('car:',car)
   const NewCar = new Car(car);
   NewCar.save(err => err ? console.error(err)&& res.send(err) : res.send('OK'))
 }

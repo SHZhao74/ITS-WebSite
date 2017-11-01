@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import bodyParser from 'body-parser';
-
+import routes from './routes'
 import * as API from './api'
 
 mongoose.Promise = global.Promise;
@@ -15,13 +15,22 @@ mongoose.connection
   });
 
 const app = express();
-
+app.set('view engine', 'ejs');
+app.use(express.static('views'));
 app.set('port', (process.env.PORT || 9487));
 
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
+app.get('/', routes.index);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.route('/car')
+  .post(API.postCar)
 app.get('/carList', API.getCarList)
 app.get('/abnormal', API.getAbnormal)
 // app.post('/carList', API.postCarList)

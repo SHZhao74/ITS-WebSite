@@ -1,0 +1,8 @@
+exports.index = function(req, res) {
+  const getCarList="車號:AB-123;地址:中正紀念堂;lat:23.344;Lon:123.33";
+  res.render('index2', {
+    title: getCarList,
+    users: ['PanPan','Kai', 'aYen', 'Kyousuke'],
+    classname: 'homepage'
+  });
+};
