@@ -2,11 +2,11 @@
   "name": "ITS-WebSite",
   "version": "1.0.0",
   "description": "for D",
-  "main": "index.js",
+  "main": "server.js",
   "author": "Shou Hao, Zhao <j5201314peter@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js --exec babel-node"
+    "start": "nodemon server.js --exec babel-node"
   },
   "private": true,
   "dependencies": {
@@ -17,6 +17,7 @@
     "express": "^4.16.2",
     "memory-cache": "^0.2.0",
     "mongoose": "^4.12.4",
+    "mysql": "^2.15.0",
     "nodemon": "^1.12.1"
   }
 }

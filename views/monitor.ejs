@@ -1,0 +1,51 @@
+<% include subview/head.ejs %>
+<body>
+    <div id="wrapper-map">
+        <% include subview/navigation.ejs %>
+        <div id="page-wrapper-map">
+            <div id="map"></div>
+            <script>
+            var map;
+            var markers = [];
+            var lat=25.035008;
+            var lon=121.5210501;
+            var first=true;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: lat, lng: lon},
+                    zoom: 16
+                });
+                setInterval(gmapmarker,1000);
+                google.maps.event.addListener(map, "rightclick",function(event){showContextMenu(event.latLng);});
+                google.maps.event.addListener(map, "click",function(event){$('.contextmenu').remove();});
+                google.maps.event.addListener(map, "drag",function(event){$('.contextmenu').remove();});
+                
+            }
+            function gmapmarker(){
+                //console.log(lon);
+                if(!first){
+                    markers[0].setMap(null);
+                    markers=[];
+                }
+                var beachMarker;
+                var image = 'http://192.168.43.128/icon/Car-Red.png';
+                beachMarker = new google.maps.Marker({
+                    position: {lat: lat, lng: lon},
+                    map: map,
+                    icon: image
+                });
+                markers.push(beachMarker)
+                lon=lon-0.0001;
+                first=false;
+            }
+            </script>
+            <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwePUn71T90EhVeLHiVad7CC3LOGJ7cl0&callback=initMap"></script> -->
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3bc62C0Kt3a6qhalwL_axQUPzrJhjqHs&callback=initMap"></script>
+            <script src="./dist/js/contextmenu.js"></script>
+            
+
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+</body>
+<% include subview/jscript.ejs %>
+</html>

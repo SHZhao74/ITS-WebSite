@@ -17,7 +17,7 @@ mongoose.connection
 const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('views'));
-app.set('port', (process.env.PORT || 9487));
+app.set('port', (process.env.PORT || 80));
 
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -26,16 +26,16 @@ app.all('*', function(req, res, next) {
   next();
 });
 app.get('/', routes.index);
+app.get('/monitor', routes.monitor);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.route('/car')
-  .post(API.postCar)
+  .get(API.postCar)
 app.get('/carList', API.getCarList)
 app.get('/abnormal', API.getAbnormal)
 // app.post('/carList', API.postCarList)
 // app.post('/abnormal', API.postAbnormal)
-
 
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
