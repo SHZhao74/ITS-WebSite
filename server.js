@@ -26,6 +26,7 @@ app.all('*', function(req, res, next) {
   next();
 });
 app.get('/', routes.index);
+app.get('/realtime', routes.realtime);
 app.get('/monitor', routes.monitor);
 
 app.use(bodyParser.urlencoded({ extended: true }));

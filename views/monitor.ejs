@@ -1,7 +1,4 @@
-<% include subview/head.ejs %>
-<body>
     <div id="wrapper-map">
-        <% include subview/navigation.ejs %>
         <div id="page-wrapper-map">
             <div id="map"></div>
             <script>
@@ -28,7 +25,7 @@
                     markers=[];
                 }
                 var beachMarker;
-                var image = 'http://192.168.43.128/icon/Car-Red.png';
+                var image = 'http://localhost/icon/Car-Red.png';
                 beachMarker = new google.maps.Marker({
                     position: {lat: lat, lng: lon},
                     map: map,
@@ -46,6 +43,3 @@
 
         </div><!-- /#page-wrapper -->
     </div><!-- /#wrapper -->
-</body>
-<% include subview/jscript.ejs %>
-</html>

@@ -40,7 +40,9 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <% include subview/navigation.ejs %>
+        <!-- <% include subview/navigation.ejs %> -->
+        <% include subview/tabs.ejs %>
+        <!-- NNNNavigation -->
 
         <div id="page-wrapper">
             <div class="row">
@@ -603,6 +605,15 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="./dist/js/sb-admin-2.js"></script>
+    <script type:"text/javascript">
+        localStorage.tabs = [];
+        function route(name, path) {
+            window.location = path;
+            if(!localStorage.tabs.find(t => t.path ==path)) {
+                localStorage.tabs.push({name: name,path:path})
+            }
+        }
+    </script>
 
 </body>
 

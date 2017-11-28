@@ -9,7 +9,11 @@ exports.index = function(req, res) {
 exports.monitor = function(req, res) {
   init("monitor",req, res);
 };
-
+exports.realtime = function (req, res) {
+  res.render('realtime', {
+    title: '車訊快遞平台 - 即時監控'
+  })
+}
 
 function init(page,req, res){
   var async = require('async');
@@ -28,7 +32,7 @@ function init(page,req, res){
     }
   ],
   function(err,results){
-    if(err) throw err; 
+    if(err) throw err;
     //console.log(results);
     res.render(page, {
       title: getTitle,
@@ -50,7 +54,7 @@ function mongo(callback){
       //return res.status(400).send(err)
     }
     cache.put('carlist', carList);
-    return callback(carList);;
+    return callback(carList);
   })
 }
 function msql(callback){

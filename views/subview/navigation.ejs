@@ -238,8 +238,10 @@
                 <%
                 for (var i of menus){ %>
                 <li>
-                    <a href="<%= i.path%>"><i class="fa fa-dashboard fa-fw"></i> <%= i.name%></a>
-                </li>  
+                    <!-- <a href="<%= i.path%>"> -->
+                    <a href="<%= i.path%>" onclick="route(event)">
+                        <i class="fa fa-dashboard fa-fw"></i> <%= i.name%></a>
+                </li>
                 <%}%>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 歷史報表<span class="fa arrow"></span></a>

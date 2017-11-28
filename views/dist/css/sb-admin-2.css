@@ -6,6 +6,9 @@
 body {
   background-color: #f8f8f8;
 }
+#display {
+  height: 600px;
+}
 #wrapper {
   width: 100%;
 }
@@ -32,7 +35,7 @@ body {
   }
   #page-wrapper-map {
     position: inherit;
-    margin: 0 0 0 250px;
+    /* margin: 0 0 0 250px; */
     padding: 0 ;
     border-left: 1px solid #e7e7e7;
   }
