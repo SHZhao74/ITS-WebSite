@@ -1,58 +1,88 @@
 $(document).ready(function () {
-    localStorage.tabs = '[{"name": "即時監視", "path": "http://localhost/realtime" }]'
-    localStorage.at = 'http://localhost/realtime'
-    $('#display').load('/realtime')
-    renderTabs()
+    // localStorage.tabs = '[{"name": "即時監視", "path": "http://localhost/realtime" }]'
+    localStorage.at = '/realtime'
+    const div = $(`<div id="realtime" class="tab-pane fade in active"></div>`)
+    $('#display').append(div.load('realtime'))
+    // renderTabs()
 
-    $('#tabs>li>a').click((e) => {
-        e.preventDefault()
-        // e.stopPropagation();
-        console.log(e)
-        route(e)
-    })
+    // $('#tabs>li>a').click((e) => {
+    //     e.preventDefault()
+    //     // e.stopPropagation();
+    //     console.log(e)
+    //     route(e)
+    // })
     // $('#tab-remove').click((e) => {
     //     e.stopPropagation();
     //     e.preventDefault();
-    //     const tabs = JSON.parse(localStorage.tabs)
-    //     tabs.filter(t => t.name !== e.target.dataset.name)
-    //     localStorage.tabs = JSON.stringify(tabs)
-    //     renderTabs()
+    //     console.log(e)
+    //     $(e.target).remove()
+    //     // const tabs = JSON.parse(localStorage.tabs)
+    //     // tabs.filter(t => t.name !== e.target.dataset.name)
+    //     // localStorage.tabs = JSON.stringify(tabs)
+    //     // renderTabs()
     // })
 })
-function renderTabs(tabs = JSON.parse(localStorage.tabs)) {
+function addTabs(name, path) {
     var html = ''
-    console.log(localStorage.at)
-    for (var i = 0; i < tabs.length; i++) {
-        const t = tabs[i]
-        console.log(t, t.path === localStorage.at)
-        html += `<li role="presentation" class="${t.path === localStorage.at ? 'active' : ''}">
-        <a href="#"> ${t.name} <span class="badge">
-                <i class="glyphicon glyphicon-remove" id='tab-remove' data-name='${t.name}'></i>
-            </span>
-        </a></li>`
+    const tabsNum = $('#tabs li').length + 1
+    const newTab = $(`<li
+    >
+    <a href="#${path}" data-toggle="tab" data-path="${path}"> 
+        ${name}
+    <button type="button" class="btn btn-warning btn-xs close-tab" ><span class="glyphicon glyphicon-remove" data-path="${path}"></span></button>
+    </a></li>`)
+    $('#tabs').append(newTab)
+    const div = $(`<div id="${path}" class="tab-pane fade"></div>`)
+    $('#display').append(div.load(path))
+    console.log('tabs length:', tabsNum)
+    $(`#tabs li a[href="#${path}"]`).tab('show')
+    $('button.close-tab').click(e=>removeTab(e))
+}
+function removeTab(e) {
+    const { path } = e.target.dataset;
+    console.log('remove ', path)
+    const tab = $(`#tabs a[href="#${path}"]`);
+    console.log(tab.parent()[0].className)
+    if (tab.parent()[0].className.includes('active')) {
+        const preTab = tab.parent().prev().children()
+        console.log(preTab)
+        preTab.tab('show')
     }
-    $('#tabs').html(html)
+    tab.remove()
+    $(`#${path}`).remove();
 }
 function route(e) {
     e.preventDefault();
     // console.log(e.target)
     var name = e.target.text.trim()
-    var path = e.target.href
-    if (localStorage.at !== path) {
-        $('#display').load(path)
-        localStorage.at = path
-        var tabs = JSON.parse(localStorage.tabs)
-        for (var i = 0; i < tabs.length; i++) {
-            if (path === tabs[i].path) {
-                // console.log('same')
-                renderTabs(tabs)
-                return
-            }
+    var path = e.target.dataset.path.trim().substring(1)
+    const tabs = $('#tabs li a')
+    for (let i = 0; i < tabs.length; i++){
+        if (tabs[i].dataset.path === path) {
+            $(`#tabs li a[href="#${path}"]`).tab('show')
+            return
         }
-        tabs.push({ name, path })
-        console.log(tabs)
-        localStorage.tabs = JSON.stringify(tabs)
-        renderTabs()
     }
+    // console.log(localStorage.at, path)
+    // if (localStorage.at !== path) {
+    //     localStorage.at = path
+    //     const tabs = $('#tabs li')
+    //     // var tabs = JSON.parse(localStorage.tabs)
+    //     console.log(name, tabs.length)
+    //     for (let i = 0; i < tabs.length; i++) {
+    //         console.log(tabs[i].dataset.name)
+    //         if (name === tabs[i].dataset.name) {
+    //             // tabs[0].tab('show')
+    //             console.log('same')
+    //             return
+    //         }
+    //     }
+    //     console.log('new ', localStorage.at)
+        addTabs(name, path)
+        // tabs.push({ name, path })
+        // console.log(tabs)
+        // localStorage.tabs = JSON.stringify(tabs)
+        // addTabs(name, path)
+    // }
 
 }

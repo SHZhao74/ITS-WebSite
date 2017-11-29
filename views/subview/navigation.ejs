@@ -237,9 +237,10 @@
                 </li>
                 <%
                 for (var i of menus){ %>
-                <li>
+                <li data-name="<%= i.name%>">
                     <!-- <a href="<%= i.path%>"> -->
-                    <a href="<%= i.path%>" onclick="route(event)">
+                    <a href="<%= i.path%>" onclick="route(event)" data-path="
+                    <%= i.path%>">
                         <i class="fa fa-dashboard fa-fw"></i> <%= i.name%></a>
                 </li>
                 <%}%>
