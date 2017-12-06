@@ -29,7 +29,7 @@ function addTabs(name, path) {
     >
     <a href="#${path}" data-toggle="tab" data-path="${path}"> 
         ${name}
-    <button type="button" class="btn btn-warning btn-xs close-tab" ><span class="glyphicon glyphicon-remove" data-path="${path}"></span></button>
+    <button type="button" class="btn btn-warning btn-xs close-tab" data-path="${path}"><span class="glyphicon glyphicon-remove" data-path="${path}"></span></button>
     </a></li>`)
     $('#tabs').append(newTab)
     const div = $(`<div id="${path}" class="tab-pane fade"></div>`)
@@ -40,15 +40,16 @@ function addTabs(name, path) {
 }
 function removeTab(e) {
     const { path } = e.target.dataset;
-    console.log('remove ', path)
+    console.log('remove ', e.target, path)
     const tab = $(`#tabs a[href="#${path}"]`);
-    console.log(tab.parent()[0].className)
+    console.log(tab, 'parent', tab.parent())
+    // console.log('parent', tab.parent())
     if (tab.parent()[0].className.includes('active')) {
         const preTab = tab.parent().prev().children()
-        console.log(preTab)
+        console.log('preTab:', preTab)
         preTab.tab('show')
     }
-    tab.remove()
+    tab.parent().remove()
     $(`#${path}`).remove();
 }
 function route(e) {
