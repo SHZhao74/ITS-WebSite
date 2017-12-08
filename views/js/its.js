@@ -42,12 +42,13 @@ function removeTab(e) {
     const { path } = e.target.dataset;
     console.log('remove ', e.target, path)
     const tab = $(`#tabs a[href="#${path}"]`);
-    console.log(tab, 'parent', tab.parent())
+    // console.log(tab, 'parent', tab.parent())
     // console.log('parent', tab.parent())
     if (tab.parent()[0].className.includes('active')) {
         const preTab = tab.parent().prev().children()
         console.log('preTab:', preTab)
         preTab.tab('show')
+        $(`#display > ${preTab[0].hash}`)[0].className += ' in active'
     }
     tab.parent().remove()
     $(`#${path}`).remove();
